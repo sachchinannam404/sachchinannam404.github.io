@@ -15,6 +15,21 @@
   <div id="particles" aria-hidden="true"></div>
   <div class="scanlines" aria-hidden="true"></div>
 
+  <!-- Persistent Spotify player (attempts autoplay on load) -->
+  <div class="spotify-float" id="spotifyFloat">
+    <iframe
+      id="spotifyPlayer"
+      style="border-radius:12px"
+      src="https://open.spotify.com/embed/playlist/43BNsnZpKZXhWa4eti7UKq?utm_source=generator&theme=0"
+      width="100%"
+      height="152"
+      frameBorder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      title="Spotify Playlist"
+    ></iframe>
+  </div>
+
   <header class="header">
     <div class="logo">
       <span class="bat-symbol">🦇</span>
@@ -249,25 +264,21 @@
     <div class="container">
       <h2 class="section-title"><span class="title-accent">05</span> Soundtrack</h2>
       <p class="spotify-intro">
-        Press play to set the mood. (Browsers require a user gesture to start audio — click the player below.)
+        Your playlist is loaded. Browsers block autoplay with sound until you interact once —
+        tap play on the player (top or below) if music hasn’t started.
       </p>
       <div class="spotify-wrapper">
         <iframe
           style="border-radius:12px"
-          src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5Vy6DFOcx00?utm_source=generator&theme=0"
+          src="https://open.spotify.com/embed/playlist/43BNsnZpKZXhWa4eti7UKq?utm_source=generator&theme=0"
           width="100%"
           height="352"
           frameBorder="0"
           allowfullscreen=""
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
           title="Spotify Playlist"
         ></iframe>
       </div>
-      <p class="spotify-hint">
-        Default playlist is a dark / cinematic mix. Replace the embed URL in <code>index.html</code>
-        with any public Spotify playlist (e.g. your own “Gotham Nights” playlist).
-      </p>
     </div>
   </section>
 
