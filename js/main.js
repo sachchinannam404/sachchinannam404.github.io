@@ -1,13 +1,54 @@
 /**
- * Portfolio interactions
+ * Portfolio interactions + theme toggle
  */
 
 (function () {
   "use strict";
 
+  const THEME_KEY = "portfolio-theme";
+
+  // Year in footer
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // —— Theme toggle (dark / light) ——
+  const root = document.documentElement;
+  const themeToggle = document.getElementById("themeToggle");
+
+  function getPreferredTheme() {
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+    return "dark"; // default: black & red dark theme
+  }
+
+  function applyTheme(theme) {
+    if (theme === "light") {
+      root.classList.add("light");
+      root.classList.remove("dark");
+    } else {
+      root.classList.add("dark");
+      root.classList.remove("light");
+    }
+    localStorage.setItem(THEME_KEY, theme);
+    if (themeToggle) {
+      themeToggle.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
+      themeToggle.setAttribute("title", theme === "light" ? "Dark mode" : "Light mode");
+      const icon = themeToggle.querySelector(".theme-icon");
+      if (icon) icon.textContent = theme === "light" ? "🌙" : "☀️";
+    }
+  }
+
+  // Apply early (also set in <head> inline script to avoid flash)
+  applyTheme(getPreferredTheme());
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const next = root.classList.contains("light") ? "dark" : "light";
+      applyTheme(next);
+    });
+  }
+
+  // Header scroll state
   const header = document.querySelector(".header");
   const onScroll = () => {
     if (window.scrollY > 40) {
@@ -19,6 +60,7 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  // Mobile nav
   const navToggle = document.getElementById("navToggle");
   const nav = document.getElementById("nav");
   if (navToggle && nav) {
@@ -30,6 +72,7 @@
     });
   }
 
+  // Particles
   const particlesContainer = document.getElementById("particles");
   if (particlesContainer) {
     const count = Math.min(45, Math.floor(window.innerWidth / 22));
@@ -44,6 +87,7 @@
     }
   }
 
+  // Reveal on scroll
   const revealEls = document.querySelectorAll(
     ".timeline-item, .achieve-card, .skill-category, .about-text, .about-card"
   );
