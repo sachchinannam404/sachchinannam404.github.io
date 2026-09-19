@@ -22,7 +22,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦇</text></svg>" />
 </head>
@@ -51,6 +51,7 @@
     </div>
     <div class="header-right">
       <nav class="nav" id="nav">
+        <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
@@ -67,22 +68,35 @@
     </div>
   </header>
 
-  <section class="hero" id="home">
+  <!-- Cinematic mouse-trail hero (ported from divyashrma18/batman vite-project) -->
+  <section class="hero cinematic-hero" id="home">
+    <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+
     <div class="hero-content">
-      <div class="bat-logo-large" aria-hidden="true">
-        <svg viewBox="0 0 200 80" class="bat-svg">
-          <path d="M100 10 C90 25 70 35 40 30 C50 45 60 55 50 70 C70 60 85 50 100 55 C115 50 130 60 150 70 C140 55 150 45 160 30 C130 35 110 25 100 10 Z" fill="#e11d48"/>
-        </svg>
+      <!-- LEFT -->
+      <div class="hero-panel left">
+        <span class="st-eyebrow">Mumbai · India</span>
+        <h1 class="st-title">SACHCHIN<br />ANNAM</h1>
+        <p class="st-desc">
+          He builds platforms. He leads teams. Born from complex enterprise requirements,
+          forged in the Microsoft ecosystem — Power Platform, SharePoint, Fabric —
+          and focused on outcomes that scale.
+        </p>
+        <a href="#experience" class="st-btn">Enter the Timeline</a>
       </div>
-      <p class="hero-tagline">I AM</p>
-      <h1 class="hero-name">SACHCHIN ANNAM</h1>
-      <p class="hero-title">Engineering Leader · Power Platform Architect · Enterprise Platform Builder</p>
-      <p class="hero-location">Mumbai, Maharashtra · Ingram Micro</p>
-      <div class="hero-cta">
-        <a href="#experience" class="btn btn-primary">View Timeline</a>
-        <a href="#contact" class="btn btn-outline">Contact</a>
+
+      <!-- RIGHT -->
+      <div class="hero-panel right">
+        <span class="st-eyebrow right-eyebrow">Engineering Leader</span>
+        <h1 class="st-title">The Man<br />Behind the Platform</h1>
+        <p class="st-text">
+          Architect by day. Platform strategist by night. Every system a lesson,
+          every delivery a weapon against chaos. He doesn’t ship features — he ships capability.
+          Can one engineer’s vision hold an enterprise together when requirements never sleep?
+        </p>
       </div>
     </div>
+
     <div class="scroll-indicator">
       <span>Scroll</span>
       <div class="scroll-line"></div>

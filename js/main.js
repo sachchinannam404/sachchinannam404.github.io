@@ -1,5 +1,6 @@
 /**
- * Portfolio interactions + theme toggle
+ * Portfolio interactions + theme toggle + cinematic mouse-trail hero
+ * Hero canvas ported from divyashrma18/batman (vite-project/src/components/Hero.jsx)
  */
 
 (function () {
@@ -18,7 +19,7 @@
   function getPreferredTheme() {
     const stored = localStorage.getItem(THEME_KEY);
     if (stored === "light" || stored === "dark") return stored;
-    return "dark"; // default: black & red dark theme
+    return "dark";
   }
 
   function applyTheme(theme) {
@@ -31,14 +32,19 @@
     }
     localStorage.setItem(THEME_KEY, theme);
     if (themeToggle) {
-      themeToggle.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
-      themeToggle.setAttribute("title", theme === "light" ? "Dark mode" : "Light mode");
+      themeToggle.setAttribute(
+        "aria-label",
+        theme === "light" ? "Switch to dark mode" : "Switch to light mode"
+      );
+      themeToggle.setAttribute(
+        "title",
+        theme === "light" ? "Dark mode" : "Light mode"
+      );
       const icon = themeToggle.querySelector(".theme-icon");
       if (icon) icon.textContent = theme === "light" ? "🌙" : "☀️";
     }
   }
 
-  // Apply early (also set in <head> inline script to avoid flash)
   applyTheme(getPreferredTheme());
 
   if (themeToggle) {
@@ -108,5 +114,138 @@
     el.style.transform = "translateY(24px)";
     el.style.transition = "opacity 0.65s ease, transform 0.65s ease";
     observer.observe(el);
+  });
+
+  // ── Cinematic mouse-trail canvas hero ──────────────────────────
+  // Images from the reference project (public on GitHub)
+  const IMG_BOTTOM =
+    "https://raw.githubusercontent.com/divyashrma18/batman/main/vite-project/public/images/twoo.jpg";
+  const IMG_TOP =
+    "https://raw.githubusercontent.com/divyashrma18/batman/main/vite-project/public/images/one.jpg";
+
+  const hero = document.querySelector(".cinematic-hero");
+  const canvas = document.getElementById("heroCanvas");
+  if (!hero || !canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  const TRAIL_LENGTH = 60;
+  const HEAD_RADIUS = 180;
+
+  const mouse = { x: -9999, y: -9999 };
+  const smooth = { x: -9999, y: -9999 };
+  const trail = [];
+
+  const bottom = new Image();
+  const topImg = new Image();
+  bottom.crossOrigin = "anonymous";
+  topImg.crossOrigin = "anonymous";
+  bottom.src = IMG_BOTTOM;
+  topImg.src = IMG_TOP;
+
+  function resize() {
+    canvas.width = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  hero.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  // Also support touch
+  hero.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!e.touches[0]) return;
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.touches[0].clientX - rect.left;
+      mouse.y = e.touches[0].clientY - rect.top;
+    },
+    { passive: true }
+  );
+
+  let rafId = 0;
+
+  function draw() {
+    const { width, height } = canvas;
+
+    smooth.x += (mouse.x - smooth.x) * 0.13;
+    smooth.y += (mouse.y - smooth.y) * 0.13;
+
+    trail.unshift({ x: smooth.x, y: smooth.y });
+    if (trail.length > TRAIL_LENGTH) trail.length = TRAIL_LENGTH;
+
+    ctx.clearRect(0, 0, width, height);
+
+    // Base layer (bottom image)
+    if (bottom.complete && bottom.naturalWidth) {
+      ctx.drawImage(bottom, 0, 0, width, height);
+    } else {
+      ctx.fillStyle = "#050505";
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    // Offscreen mask for top image revealed by trail
+    const offscreen = document.createElement("canvas");
+    offscreen.width = width;
+    offscreen.height = height;
+    const off = offscreen.getContext("2d");
+
+    for (let i = 0; i < trail.length; i++) {
+      const t = 1 - i / trail.length;
+      const r = HEAD_RADIUS * (0.25 + 0.75 * t);
+      const alpha = Math.pow(t, 1.5);
+      off.beginPath();
+      off.arc(trail[i].x, trail[i].y, r, 0, Math.PI * 2);
+      off.fillStyle = `rgba(0,0,0,${alpha})`;
+      off.fill();
+    }
+
+    off.globalCompositeOperation = "source-in";
+    if (topImg.complete && topImg.naturalWidth) {
+      off.drawImage(topImg, 0, 0, width, height);
+    }
+
+    ctx.drawImage(offscreen, 0, 0);
+
+    // Cursor head glow — red / gold bat-signal tint
+    if (trail.length > 0) {
+      const head = trail[0];
+      const glow = ctx.createRadialGradient(
+        head.x,
+        head.y,
+        0,
+        head.x,
+        head.y,
+        HEAD_RADIUS * 1.4
+      );
+      glow.addColorStop(0, "rgba(192, 0, 26, 0.28)");
+      glow.addColorStop(0.45, "rgba(201, 164, 74, 0.12)");
+      glow.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.beginPath();
+      ctx.arc(head.x, head.y, HEAD_RADIUS * 1.4, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+    }
+
+    rafId = requestAnimationFrame(draw);
+  }
+
+  let loaded = 0;
+  const onLoad = () => {
+    if (++loaded === 2) draw();
+  };
+  bottom.onload = onLoad;
+  topImg.onload = onLoad;
+  // Fallback if images already cached
+  if (bottom.complete) onLoad();
+  if (topImg.complete) onLoad();
+
+  // Clean up on page hide (optional)
+  window.addEventListener("beforeunload", () => {
+    cancelAnimationFrame(rafId);
   });
 })();
