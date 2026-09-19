@@ -1,15 +1,13 @@
 /**
- * Dark Batman Portfolio — interactions
+ * Portfolio interactions
  */
 
 (function () {
   "use strict";
 
-  // Year in footer
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Header scroll state
   const header = document.querySelector(".header");
   const onScroll = () => {
     if (window.scrollY > 40) {
@@ -21,7 +19,6 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // Mobile nav toggle
   const navToggle = document.getElementById("navToggle");
   const nav = document.getElementById("nav");
   if (navToggle && nav) {
@@ -33,22 +30,20 @@
     });
   }
 
-  // Floating particles (bats / sparks)
   const particlesContainer = document.getElementById("particles");
   if (particlesContainer) {
-    const count = Math.min(40, Math.floor(window.innerWidth / 25));
+    const count = Math.min(45, Math.floor(window.innerWidth / 22));
     for (let i = 0; i < count; i++) {
       const p = document.createElement("div");
       p.className = "particle";
       p.style.left = Math.random() * 100 + "%";
       p.style.animationDuration = 8 + Math.random() * 14 + "s";
       p.style.animationDelay = Math.random() * 10 + "s";
-      p.style.width = p.style.height = 1 + Math.random() * 2 + "px";
+      p.style.width = p.style.height = 1 + Math.random() * 2.5 + "px";
       particlesContainer.appendChild(p);
     }
   }
 
-  // Reveal on scroll (simple)
   const revealEls = document.querySelectorAll(
     ".timeline-item, .achieve-card, .skill-category, .about-text, .about-card"
   );
@@ -67,7 +62,7 @@
   revealEls.forEach((el) => {
     el.style.opacity = "0";
     el.style.transform = "translateY(24px)";
-    el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+    el.style.transition = "opacity 0.65s ease, transform 0.65s ease";
     observer.observe(el);
   });
 })();
