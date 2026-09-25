@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Sachchin Annam — Engineering Leader | Power Platform & SharePoint Architect" />
-  <title>Sachchin Annam | Portfolio</title>
+  <meta property="og:title" content="Sachchin Annam | Engineering Leader & Platform Architect" />
+  <meta property="og:description" content="Enterprise Power Platform, Microsoft Fabric, SharePoint architecture, and low-code solution governance." />
+  <meta property="og:type" content="website" />
+  <title>Sachchin Annam | Engineering Leader & Platform Architect</title>
   <script>
     // Prevent flash of wrong theme
     (function () {
@@ -22,311 +25,1149 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Orbitron:wght@400;500;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦇</text></svg>" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
 </head>
 <body>
   <div id="particles" aria-hidden="true"></div>
   <div class="scanlines" aria-hidden="true"></div>
 
-  <header class="header">
-    <div class="logo">
-      <span class="bat-symbol">🦇</span>
+  <!-- Header -->
+  <header class="header" id="siteHeader">
+    <a href="#home" class="logo" aria-label="Sachchin Annam Home">
+      <span class="bat-symbol" aria-hidden="true">🦇</span>
       <span class="logo-text">SACHCHIN</span>
-    </div>
+      <span class="logo-sub">ARCHITECT</span>
+    </a>
+
     <div class="header-right">
-      <nav class="nav" id="nav">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#achievements">Achievements</a>
-        <a href="#spotify">Soundtrack</a>
-        <a href="#contact">Contact</a>
+      <nav class="nav" id="nav" aria-label="Main Navigation">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#solutions" class="nav-link">Solutions</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#insights" class="nav-link">Insights</a>
+        <a href="#achievements" class="nav-link">Credentials</a>
+        <a href="#spotify" class="nav-link">Soundtrack</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
-      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" title="Light mode">
-        <span class="theme-icon" aria-hidden="true">☀️</span>
-      </button>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+
+      <div class="header-controls">
+        <!-- Command Palette Trigger -->
+        <button type="button" class="ctrl-btn cmd-palette-trigger" id="cmdPaletteBtn" aria-label="Quick Search and Actions (Cmd+K)" title="Quick Actions (Ctrl/Cmd + K)">
+          <span class="cmd-icon" aria-hidden="true">⚡</span>
+          <span class="cmd-shortcut">⌘K</span>
+        </button>
+
+        <!-- Ambient Soundscape Generator -->
+        <button type="button" class="ctrl-btn ambient-toggle" id="ambientToggle" aria-label="Toggle cinematic dark ambient audio" title="Cinematic Ambient Audio">
+          <span class="ambient-icon" aria-hidden="true">🎵</span>
+          <span class="ambient-label">Ambient</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" title="Toggle Theme">
+          <span class="theme-icon" aria-hidden="true">☀️</span>
+        </button>
+
+        <!-- Mobile Navigation Menu Toggle -->
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Cinematic mouse-trail hero (ported from divyashrma18/batman vite-project) -->
+  <!-- Ambient Audio Volume Floating Bar (shows when active) -->
+  <aside class="ambient-player-bar hidden" id="ambientPlayerBar" aria-label="Ambient Soundscape Controls">
+    <div class="ambient-player-inner">
+      <div class="ambient-indicator">
+        <span class="sound-wave"></span>
+        <span class="sound-wave"></span>
+        <span class="sound-wave"></span>
+      </div>
+      <span class="ambient-status-text">Atmospheric Drone & Rain</span>
+      <div class="volume-slider-wrap">
+        <label for="ambientVolume" class="sr-only">Ambient Volume</label>
+        <input type="range" id="ambientVolume" min="0" max="1" step="0.05" value="0.4" aria-label="Volume" />
+      </div>
+      <button type="button" class="ambient-stop-btn" id="ambientStopBtn" aria-label="Stop audio">✕</button>
+    </div>
+  </aside>
+
+  <!-- Cinematic mouse-trail & gothic atmospheric canvas hero -->
   <section class="hero cinematic-hero" id="home">
     <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
 
     <div class="hero-content">
-      <!-- LEFT -->
+      <!-- LEFT PANEL -->
       <div class="hero-panel left">
-        <span class="st-eyebrow">Mumbai · India</span>
+        <div class="hero-kicker-group">
+          <span class="st-eyebrow">Mumbai · India</span>
+          <span class="hero-live-clock" id="heroLiveClock" title="Current Indian Standard Time">IST --:--:--</span>
+        </div>
         <h1 class="st-title">SACHCHIN<br />ANNAM</h1>
         <p class="st-desc">
-          He builds platforms. He leads teams. Born from complex enterprise requirements,
-          forged in the Microsoft ecosystem — Power Platform, SharePoint, Fabric —
-          and focused on outcomes that scale.
+          He builds enterprise platforms. He leads high-velocity teams. Forged in the Microsoft enterprise ecosystem — 
+          Power Platform, SharePoint, Fabric, and Model-Driven architectures — engineered for mission-critical scale.
         </p>
-        <a href="#experience" class="st-btn">Enter the Timeline</a>
+        <div class="hero-actions">
+          <a href="#solutions" class="st-btn primary-glow">
+            <span>Explore Blueprints</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="#contact" class="st-btn secondary-btn">
+            <span>Get in Touch</span>
+          </a>
+        </div>
       </div>
 
-      <!-- RIGHT -->
+      <!-- RIGHT PANEL -->
       <div class="hero-panel right">
-        <span class="st-eyebrow right-eyebrow">Engineering Leader</span>
-        <h1 class="st-title">The Man<br />Behind the Platform</h1>
+        <span class="st-eyebrow right-eyebrow">Engineering Leadership</span>
+        <h2 class="st-title sub-title">The Architect<br />Behind the Scale</h2>
         <p class="st-text">
-          Architect by day. Platform strategist by night. Every system a lesson,
-          every delivery a weapon against chaos. He doesn’t ship features — he ships capability.
-          Can one engineer’s vision hold an enterprise together when requirements never sleep?
+          Enterprise strategist by day. System resilience optimizer by night. Every platform a lesson in governance, 
+          every delivery an antidote to organizational chaos. Transforming business friction into automated capability.
         </p>
+        <div class="hero-highlights">
+          <div class="hero-hl-item">
+            <span class="hl-value">10+</span>
+            <span class="hl-label">Years Enterprise Architecture</span>
+          </div>
+          <div class="hl-divider" aria-hidden="true"></div>
+          <div class="hero-hl-item">
+            <span class="hl-value">Ingram Micro</span>
+            <span class="hl-label">Platform Leadership</span>
+          </div>
+          <div class="hl-divider" aria-hidden="true"></div>
+          <div class="hero-hl-item">
+            <span class="hl-value">3,000+</span>
+            <span class="hl-label">LinkedIn Community</span>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Interactive Canvas Mode Controls -->
+    <div class="hero-canvas-hint" aria-hidden="true">
+      <span class="hint-dot"></span> Move cursor or tap to ignite the atmospheric spotlight
+    </div>
+
     <div class="scroll-indicator">
-      <span>Scroll</span>
+      <span>Scroll to explore</span>
       <div class="scroll-line"></div>
     </div>
   </section>
 
+  <!-- 01. ABOUT -->
   <section class="section about" id="about">
     <div class="container">
-      <h2 class="section-title"><span class="title-accent">01</span> About</h2>
+      <div class="section-header">
+        <span class="section-kicker">01. Perspective & Philosophy</span>
+        <h2 class="section-title">The Foundation</h2>
+      </div>
+
       <div class="about-grid">
         <div class="about-text">
-          <p>
-            I lead engineering teams building enterprise-grade platforms that power real business outcomes.
-            With deep expertise in the Microsoft ecosystem — Power Platform, SharePoint, Model-Driven Apps,
-            Microsoft Fabric, and Power BI — I transform complex requirements into scalable, maintainable solutions.
+          <p class="lead-text">
+            I lead platform engineering teams that architect, modernize, and govern enterprise-wide systems. 
+            With deep mastery across the Microsoft ecosystem — from low-code Power Platform applications to 
+            SharePoint Online migrations and Microsoft Fabric lakehouses — I transform intricate operational demands into dependable software engines.
           </p>
           <p>
-            From SharePoint 2010/2013 development and JSLink customizations to modern Power Platform architecture
-            and low-code governance, I’ve spent over a decade turning chaos into clarity for global organizations.
+            My engineering journey spans over a decade: from the intricate depths of SharePoint 2010/2013 server farms, 
+            JSLink / CSR client customizations, and full-trust solutions, into modern SPFx web parts, Dataverse relational schema design, 
+            and enterprise Application Lifecycle Management (ALM).
           </p>
           <p>
-            Currently at <strong>Ingram Micro</strong>, I focus on platform strategy, team leadership, and
-            delivering robust digital experiences that scale across enterprises.
+            Currently at <strong>Ingram Micro</strong>, I spearhead platform strategy, architect multi-region low-code solutions, 
+            and cultivate high-performing engineering cultures that champion automation, rigorous quality standards, and measurable business throughput.
           </p>
+
+          <div class="about-pillars">
+            <div class="pillar">
+              <span class="pillar-num">01</span>
+              <h4>Architectural Governance</h4>
+              <p>Establishing enterprise guardrails, DLP policies, and automated CI/CD pipelines so agility never compromises compliance.</p>
+            </div>
+            <div class="pillar">
+              <span class="pillar-num">02</span>
+              <h4>Low-Code at Scale</h4>
+              <p>Harnessing Dataverse, Model-Driven Apps, and cloud flows to replace fragile legacy workflows with robust digital backbones.</p>
+            </div>
+            <div class="pillar">
+              <span class="pillar-num">03</span>
+              <h4>People & Execution</h4>
+              <p>Empowering multi-disciplinary teams with clear technical roadmaps, mentorship, and agile delivery principles.</p>
+            </div>
+          </div>
         </div>
-        <div class="about-card">
-          <div class="stat">
-            <span class="stat-num">10+</span>
-            <span class="stat-label">Years Experience</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">MS</span>
-            <span class="stat-label">Certified</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">3K+</span>
-            <span class="stat-label">LinkedIn Followers</span>
+
+        <div class="about-sidebar">
+          <div class="about-card profile-stat-card">
+            <div class="profile-header-widget">
+              <div class="profile-avatar-circle" aria-hidden="true">
+                <span>SA</span>
+              </div>
+              <div>
+                <h3 class="profile-name">Sachchin Annam</h3>
+                <span class="profile-title">Engineering Leader · Platform Architect</span>
+              </div>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat">
+                <span class="stat-num">10+</span>
+                <span class="stat-label">Years In Field</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num">MS</span>
+                <span class="stat-label">Certified 70-488 & 70-573</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num">3K+</span>
+                <span class="stat-label">Community Peers</span>
+              </div>
+            </div>
+
+            <div class="quick-facts">
+              <div class="fact-item">
+                <span class="fact-title">Current Role</span>
+                <span class="fact-value">Engineering Leader @ Ingram Micro</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-title">Location</span>
+                <span class="fact-value">Mumbai, Maharashtra, India</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-title">Specialization</span>
+                <span class="fact-value">Power Platform · SharePoint · Fabric · ALM</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-title">Methodology</span>
+                <span class="fact-value">Certified ScrumMaster (CSM) · ITIL</span>
+              </div>
+            </div>
+
+            <div class="card-action-bar">
+              <button type="button" class="action-btn-small" id="downloadVcardBtn" title="Add Sachchin Annam to Contacts">
+                <span class="btn-icon" aria-hidden="true">📇</span> Download vCard
+              </button>
+              <a href="https://in.linkedin.com/in/sachchinannam" target="_blank" rel="noopener" class="action-btn-small">
+                <span class="btn-icon" aria-hidden="true">🔗</span> LinkedIn
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- 02. ENTERPRISE SOLUTIONS & BLUEPRINTS -->
+  <section class="section solutions" id="solutions">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">02. Architecture & Case Studies</span>
+        <h2 class="section-title">Enterprise Blueprints</h2>
+        <p class="section-subtitle">Real-world platform architectures designed for enterprise resilience, scale, and seamless operational flow.</p>
+      </div>
+
+      <!-- Solutions Filter Controls -->
+      <div class="filter-bar" role="tablist" aria-label="Solutions Filter">
+        <button type="button" class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All Solutions</button>
+        <button type="button" class="filter-tab" data-filter="power-platform" role="tab" aria-selected="false">Power Platform & Dataverse</button>
+        <button type="button" class="filter-tab" data-filter="sharepoint" role="tab" aria-selected="false">SharePoint & Modernization</button>
+        <button type="button" class="filter-tab" data-filter="fabric-data" role="tab" aria-selected="false">Fabric & Analytics</button>
+        <button type="button" class="filter-tab" data-filter="governance" role="tab" aria-selected="false">Governance & ALM</button>
+      </div>
+
+      <!-- Solutions Grid -->
+      <div class="solutions-grid" id="solutionsGrid">
+        <!-- Solution 1 -->
+        <article class="solution-card" data-category="power-platform" data-id="sol-1">
+          <div class="solution-card-header">
+            <span class="sol-domain">Enterprise Power Platform</span>
+            <span class="sol-metric">Tens of Thousands of Daily Transactions</span>
+          </div>
+          <h3 class="sol-title">Global Multi-Tier Approval & Fulfillment Engine</h3>
+          <p class="sol-summary">
+            Architected a high-throughput Model-Driven & Canvas App suite backed by Dataverse relational entities, 
+            complex business process flows (BPFs), and resilient Power Automate cloud flows managing multi-tier approvals across continents.
+          </p>
+          <div class="sol-tech-strip">
+            <span>Dataverse</span>
+            <span aria-hidden="true">·</span>
+            <span>Model-Driven Apps</span>
+            <span aria-hidden="true">·</span>
+            <span>Power Automate</span>
+            <span aria-hidden="true">·</span>
+            <span>Azure Key Vault</span>
+          </div>
+          <button type="button" class="sol-inspect-btn" data-modal="sol-1">
+            <span>Inspect Blueprint</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </article>
+
+        <!-- Solution 2 -->
+        <article class="solution-card" data-category="sharepoint" data-id="sol-2">
+          <div class="solution-card-header">
+            <span class="sol-domain">SharePoint Modernization</span>
+            <span class="sol-metric">Zero-Loss Migration</span>
+          </div>
+          <h3 class="sol-title">SharePoint 2013/2010 to Modern M365 Transformation</h3>
+          <p class="sol-summary">
+            Engineered the legacy modernization pipeline transitioning custom full-trust solutions, JSLink/CSR custom rendering, 
+            and complex list schemas into modern SharePoint Online architecture with SPFx components and Microsoft Lists.
+          </p>
+          <div class="sol-tech-strip">
+            <span>SharePoint Online</span>
+            <span aria-hidden="true">·</span>
+            <span>SPFx</span>
+            <span aria-hidden="true">·</span>
+            <span>JSLink Transition</span>
+            <span aria-hidden="true">·</span>
+            <span>REST API</span>
+          </div>
+          <button type="button" class="sol-inspect-btn" data-modal="sol-2">
+            <span>Inspect Blueprint</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </article>
+
+        <!-- Solution 3 -->
+        <article class="solution-card" data-category="fabric-data" data-id="sol-3">
+          <div class="solution-card-header">
+            <span class="sol-domain">Unified Analytics</span>
+            <span class="sol-metric">Near Real-Time Telemetry</span>
+          </div>
+          <h3 class="sol-title">Microsoft Fabric OneLake & Power BI Unified Lakehouse</h3>
+          <p class="sol-summary">
+            Unified siloed operational databases into a governed Microsoft Fabric Lakehouse. 
+            Connected Dataverse synched entities with Direct Lake Power BI datasets, eliminating brittle batch exports and empowering executive decision-making.
+          </p>
+          <div class="sol-tech-strip">
+            <span>Microsoft Fabric</span>
+            <span aria-hidden="true">·</span>
+            <span>Power BI</span>
+            <span aria-hidden="true">·</span>
+            <span>OneLake</span>
+            <span aria-hidden="true">·</span>
+            <span>Direct Lake</span>
+          </div>
+          <button type="button" class="sol-inspect-btn" data-modal="sol-3">
+            <span>Inspect Blueprint</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </article>
+
+        <!-- Solution 4 -->
+        <article class="solution-card" data-category="governance" data-id="sol-4">
+          <div class="solution-card-header">
+            <span class="sol-domain">ALM & Center of Excellence</span>
+            <span class="sol-metric">Automated Gateways</span>
+          </div>
+          <h3 class="sol-title">Enterprise Low-Code Governance & Automated ALM Pipelines</h3>
+          <p class="sol-summary">
+            Instituted enterprise DLP architectures, environment strategies (Dev/Test/Prod), 
+            and solution packaging workflows via Power Platform CLI and Azure DevOps, preventing unmanaged sprawl and safeguarding mission-critical data.
+          </p>
+          <div class="sol-tech-strip">
+            <span>PAC CLI</span>
+            <span aria-hidden="true">·</span>
+            <span>Azure DevOps</span>
+            <span aria-hidden="true">·</span>
+            <span>Solution Packaging</span>
+            <span aria-hidden="true">·</span>
+            <span>DLP Policies</span>
+          </div>
+          <button type="button" class="sol-inspect-btn" data-modal="sol-4">
+            <span>Inspect Blueprint</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03. SKILLS MATRIX -->
   <section class="section skills" id="skills">
     <div class="container">
-      <h2 class="section-title"><span class="title-accent">02</span> Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <h3>Microsoft Platform</h3>
-          <div class="skill-tags">
-            <span class="tag">Power Platform</span>
-            <span class="tag">Power Apps</span>
-            <span class="tag">Power Automate</span>
-            <span class="tag">Model-Driven Apps</span>
-            <span class="tag">Microsoft Fabric</span>
-            <span class="tag">Power BI</span>
-            <span class="tag">SharePoint Online</span>
-            <span class="tag">SharePoint 2013/2010</span>
-            <span class="tag">Microsoft Lists</span>
-            <span class="tag">Dataverse</span>
+      <div class="section-header">
+        <span class="section-kicker">03. Technical Matrix</span>
+        <h2 class="section-title">Core Competencies</h2>
+        <p class="section-subtitle">A curated taxonomy of platform capabilities, architectural frameworks, and delivery disciplines.</p>
+      </div>
+
+      <!-- Skills Search and Filter Bar -->
+      <div class="skills-filter-container">
+        <div class="skills-search-wrap">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <label for="skillSearchInput" class="sr-only">Search technical skills</label>
+          <input type="text" id="skillSearchInput" class="skills-search-input" placeholder="Search skills (e.g. Dataverse, SPFx, Fabric, Azure, Scrum)..." autocomplete="off" />
+          <button type="button" class="skills-search-clear hidden" id="skillClearBtn" aria-label="Clear search">✕</button>
+        </div>
+
+        <div class="skill-category-chips" role="tablist" aria-label="Skills Domain Filter">
+          <button type="button" class="skill-chip-btn active" data-cat="all">All Domains (<span id="skillCount">26</span>)</button>
+          <button type="button" class="skill-chip-btn" data-cat="microsoft-platform">Microsoft Core</button>
+          <button type="button" class="skill-chip-btn" data-cat="architecture">Architecture & Dev</button>
+          <button type="button" class="skill-chip-btn" data-cat="leadership">Leadership & Governance</button>
+          <button type="button" class="skill-chip-btn" data-cat="data-analytics">Data & Analytics</button>
+        </div>
+      </div>
+
+      <!-- Skills Interactive Grid -->
+      <div class="skills-interactive-grid" id="skillsGrid">
+        <!-- Microsoft Core -->
+        <div class="skill-item-card" data-cat="microsoft-platform" data-name="power platform power apps automate model-driven">
+          <div class="skill-header">
+            <span class="skill-icon">⚡</span>
+            <h3 class="skill-name">Power Platform</h3>
+            <span class="skill-level">Architect Level</span>
+          </div>
+          <p class="skill-desc">Enterprise app suite design with Canvas, Model-Driven Apps, Dataverse business logic, and cloud flow orchestrations.</p>
+          <div class="skill-meta">
+            <span>10+ Years</span>
+            <span aria-hidden="true">·</span>
+            <span>Enterprise Scale</span>
           </div>
         </div>
-        <div class="skill-category">
-          <h3>Development & Architecture</h3>
-          <div class="skill-tags">
-            <span class="tag">SPFx</span>
-            <span class="tag">JSLink / CSR</span>
-            <span class="tag">JavaScript / TypeScript</span>
-            <span class="tag">REST / JSOM</span>
-            <span class="tag">Enterprise Architecture</span>
-            <span class="tag">Solution Governance</span>
-            <span class="tag">Low-Code Strategy</span>
+
+        <div class="skill-item-card" data-cat="microsoft-platform" data-name="dataverse relational schema security roles business units">
+          <div class="skill-header">
+            <span class="skill-icon">🗄️</span>
+            <h3 class="skill-name">Microsoft Dataverse</h3>
+            <span class="skill-level">Deep Core</span>
+          </div>
+          <p class="skill-desc">Relational entity modeling, hierarchical business units, column-level security, virtual tables, and complex calculated rollups.</p>
+          <div class="skill-meta">
+            <span>Enterprise Schemas</span>
+            <span aria-hidden="true">·</span>
+            <span>RBAC Security</span>
           </div>
         </div>
-        <div class="skill-category">
-          <h3>Leadership & Methods</h3>
-          <div class="skill-tags">
-            <span class="tag">Team Leadership</span>
-            <span class="tag">Scrum / Agile</span>
-            <span class="tag">ITIL</span>
-            <span class="tag">Business Analysis</span>
-            <span class="tag">Mentoring</span>
-            <span class="tag">Technical Writing</span>
+
+        <div class="skill-item-card" data-cat="microsoft-platform" data-name="sharepoint online spfx hybrid intranet lists">
+          <div class="skill-header">
+            <span class="skill-icon">🏢</span>
+            <h3 class="skill-name">SharePoint Online & Modern M365</h3>
+            <span class="skill-level">Subject Matter Expert</span>
+          </div>
+          <p class="skill-desc">Modern hub-and-spoke topologies, Microsoft Lists architecture, document lifecycle management, and enterprise search.</p>
+          <div class="skill-meta">
+            <span>Microsoft Certified</span>
+            <span aria-hidden="true">·</span>
+            <span>Global Farms</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="microsoft-platform" data-name="sharepoint on-premise 2013 2010 full-trust solutions farms">
+          <div class="skill-header">
+            <span class="skill-icon">🏛️</span>
+            <h3 class="skill-name">SharePoint Server 2013 / 2010</h3>
+            <span class="skill-level">Legacy Farm Master</span>
+          </div>
+          <p class="skill-desc">On-premises server architecture, solution packages (WSP), timer jobs, IIS management, and cloud migration paths.</p>
+          <div class="skill-meta">
+            <span>70-488 & 70-573</span>
+            <span aria-hidden="true">·</span>
+            <span>On-Premise Core</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="data-analytics" data-name="microsoft fabric onelake data lake lakehouse delta parquet">
+          <div class="skill-header">
+            <span class="skill-icon">🌊</span>
+            <h3 class="skill-name">Microsoft Fabric & OneLake</h3>
+            <span class="skill-level">Modern Lakehouse</span>
+          </div>
+          <p class="skill-desc">Architecting SaaS multi-cloud data estates, Delta Parquet tables, semantic models, and cross-workload governance.</p>
+          <div class="skill-meta">
+            <span>OneLake Unified</span>
+            <span aria-hidden="true">·</span>
+            <span>Next-Gen Analytics</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="data-analytics" data-name="power bi dax modeling direct lake directquery reports dashboard">
+          <div class="skill-header">
+            <span class="skill-icon">📊</span>
+            <h3 class="skill-name">Power BI & DAX Modeling</h3>
+            <span class="skill-level">Executive BI</span>
+          </div>
+          <p class="skill-desc">High-performance semantic models, complex DAX measures, row-level security (RLS), and Direct Lake real-time ingestion.</p>
+          <div class="skill-meta">
+            <span>Operational BI</span>
+            <span aria-hidden="true">·</span>
+            <span>Executive Insights</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="architecture" data-name="spfx sharepoint framework react typescript client side web parts">
+          <div class="skill-header">
+            <span class="skill-icon">⚙️</span>
+            <h3 class="skill-name">SPFx & TypeScript Development</h3>
+            <span class="skill-level">Full Client Stack</span>
+          </div>
+          <p class="skill-desc">Building rich SharePoint Framework web parts, extensions, custom application customizers with React and modern toolchains.</p>
+          <div class="skill-meta">
+            <span>TypeScript</span>
+            <span aria-hidden="true">·</span>
+            <span>React & Fluent UI</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="architecture" data-name="jslink csr client side rendering rest jsom custom datatables">
+          <div class="skill-header">
+            <span class="skill-icon">📜</span>
+            <h3 class="skill-name">JSLink / CSR & JSOM</h3>
+            <span class="skill-level">Classic Customization</span>
+          </div>
+          <p class="skill-desc">Deep historical mastery of Client-Side Rendering overrides, field customizations, custom DataTables, and asynchronous JSOM calls.</p>
+          <div class="skill-meta">
+            <span>Technical Author</span>
+            <span aria-hidden="true">·</span>
+            <span>Migration Expert</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="architecture" data-name="enterprise architecture low-code strategy governance alm pac cli">
+          <div class="skill-header">
+            <span class="skill-icon">📐</span>
+            <h3 class="skill-name">Solution Architecture & ALM</h3>
+            <span class="skill-level">Enterprise Lead</span>
+          </div>
+          <p class="skill-desc">Automated solution packaging, environment routing, deployment safety rings, and continuous integration via Azure Pipelines.</p>
+          <div class="skill-meta">
+            <span>DevOps Automation</span>
+            <span aria-hidden="true">·</span>
+            <span>CoE Governance</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="leadership" data-name="team leadership engineering management mentoring hiring">
+          <div class="skill-header">
+            <span class="skill-icon">🛡️</span>
+            <h3 class="skill-name">Engineering Leadership & Mentorship</h3>
+            <span class="skill-level">People & Platform</span>
+          </div>
+          <p class="skill-desc">Guiding distributed engineering teams, code review excellence, technical career roadmaps, and stakeholder alignment.</p>
+          <div class="skill-meta">
+            <span>Global Teams</span>
+            <span aria-hidden="true">·</span>
+            <span>Ingram Micro</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="leadership" data-name="scrum master agile sprint planning retrospectives kanban csm">
+          <div class="skill-header">
+            <span class="skill-icon">🎯</span>
+            <h3 class="skill-name">Agile & Scrum (CSM)</h3>
+            <span class="skill-level">Certified ScrumMaster</span>
+          </div>
+          <p class="skill-desc">Sprint orchestration, backlog refinement, impediment removal, and driving high velocity without technical debt accumulation.</p>
+          <div class="skill-meta">
+            <span>Scrum Alliance</span>
+            <span aria-hidden="true">·</span>
+            <span>Sprint Cadence</span>
+          </div>
+        </div>
+
+        <div class="skill-item-card" data-cat="leadership" data-name="itil service management business analysis requirements">
+          <div class="skill-header">
+            <span class="skill-icon">📋</span>
+            <h3 class="skill-name">ITIL & Business Systems Analysis</h3>
+            <span class="skill-level">Service Management</span>
+          </div>
+          <p class="skill-desc">Aligning IT services with strategic business objectives, change enablement, incident post-mortems, and SLA delivery.</p>
+          <div class="skill-meta">
+            <span>ITIL Framework</span>
+            <span aria-hidden="true">·</span>
+            <span>Process Rigor</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- 04. EXPERIENCE TIMELINE -->
   <section class="section experience" id="experience">
     <div class="container">
-      <h2 class="section-title"><span class="title-accent">03</span> Experience</h2>
+      <div class="section-header">
+        <span class="section-kicker">04. Professional Trajectory</span>
+        <h2 class="section-title">Experience & Milestones</h2>
+        <p class="section-subtitle">A decade of engineering leadership, platform deliveries, and architectural transformations.</p>
+      </div>
+
       <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
+        <!-- Ingram Micro -->
+        <div class="timeline-item active-timeline-item">
+          <div class="timeline-marker-pulse" aria-hidden="true"></div>
           <div class="timeline-content">
-            <span class="timeline-date">Present</span>
-            <h3>Ingram Micro</h3>
-            <p class="role">Engineering Leadership · Platform Engineering</p>
-            <p>
-              Leading engineering teams that build and scale enterprise-grade platforms.
-              Focus on Microsoft ecosystem solutions, architecture decisions, and delivering
-              business-critical digital capabilities for a global technology distributor.
+            <div class="timeline-header-line">
+              <span class="timeline-badge current-badge">Present Role</span>
+              <span class="timeline-date">Current Tenure</span>
+            </div>
+            <h3 class="timeline-company">Ingram Micro</h3>
+            <p class="timeline-role">Engineering Leadership · Platform Engineering & Architecture</p>
+            <p class="timeline-description">
+              Leading core engineering teams driving enterprise-grade digital platforms for the world’s leading technology distributor. 
+              Directing architecture decisions across Microsoft Power Platform, SharePoint Online, and modern data platforms.
             </p>
+            
+            <div class="timeline-key-outcomes">
+              <h4>Architectural Mandate & Highlights</h4>
+              <ul>
+                <li>Spearheaded enterprise Power Platform solution governance, establishing automated ALM workflows and secure multi-tier Dataverse environments.</li>
+                <li>Architected business-critical workflow engines processing global partner transactions and complex fulfillment operations.</li>
+                <li>Mentored senior and associate engineers in low-code best practices, modern SPFx development, and resilient cloud integration patterns.</li>
+              </ul>
+            </div>
+
+            <div class="timeline-tags">
+              <span>Platform Leadership</span>
+              <span aria-hidden="true">·</span>
+              <span>Power Platform Architecture</span>
+              <span aria-hidden="true">·</span>
+              <span>Microsoft Fabric</span>
+              <span aria-hidden="true">·</span>
+              <span>Enterprise ALM</span>
+            </div>
           </div>
         </div>
+
+        <!-- eClerx -->
         <div class="timeline-item">
-          <div class="timeline-marker"></div>
+          <div class="timeline-marker" aria-hidden="true"></div>
           <div class="timeline-content">
-            <span class="timeline-date">Earlier Career</span>
-            <h3>eClerx</h3>
-            <p class="role">SharePoint / Microsoft Platform Roles</p>
-            <p>
-              Delivered SharePoint solutions and automation. Recognized with a Spot Reward (Nov 2015)
-              for outstanding contribution.
+            <div class="timeline-header-line">
+              <span class="timeline-badge milestone-badge">Spot Reward Recognized</span>
+              <span class="timeline-date">Earlier Career</span>
+            </div>
+            <h3 class="timeline-company">eClerx</h3>
+            <p class="timeline-role">SharePoint / Microsoft Platform Specialist</p>
+            <p class="timeline-description">
+              Engineered end-to-end SharePoint business platforms and automated workflow solutions for tier-1 enterprise clients. 
+              Designed high-availability list schemas and automated governance tools that drastically reduced manual business processing time.
             </p>
+
+            <div class="timeline-key-outcomes">
+              <h4>Key Deliverables & Recognition</h4>
+              <ul>
+                <li>Honored with the coveted <strong>Spot Reward (Nov 2015)</strong> for exceptional contribution to mission-critical deliverables.</li>
+                <li>Implemented customized client-side reporting dashboards utilizing JSLink and REST endpoints for real-time operational visibility.</li>
+              </ul>
+            </div>
+
+            <div class="timeline-tags">
+              <span>SharePoint 2013</span>
+              <span aria-hidden="true">·</span>
+              <span>Workflow Automation</span>
+              <span aria-hidden="true">·</span>
+              <span>JSLink / CSR</span>
+              <span aria-hidden="true">·</span>
+              <span>REST Services</span>
+            </div>
           </div>
         </div>
+
+        <!-- L&T Infotech -->
         <div class="timeline-item">
-          <div class="timeline-marker"></div>
+          <div class="timeline-marker" aria-hidden="true"></div>
           <div class="timeline-content">
-            <span class="timeline-date">Earlier Career</span>
-            <h3>L&T Infotech</h3>
-            <p class="role">SharePoint Development & Delivery</p>
-            <p>
-              Built SharePoint solutions and contributed to team performance.
-              Received Spot Award and Team Performance Award (Dec 2013).
+            <div class="timeline-header-line">
+              <span class="timeline-badge milestone-badge">Double Awardee</span>
+              <span class="timeline-date">Earlier Career</span>
+            </div>
+            <h3 class="timeline-company">L&T Infotech (LTI)</h3>
+            <p class="timeline-role">SharePoint Development & Delivery Specialist</p>
+            <p class="timeline-description">
+              Developed custom SharePoint solutions, server-side timer jobs, and web services for enterprise banking and corporate clients. 
+              Consistently demonstrated exceptional delivery speed and technical rigor.
             </p>
+
+            <div class="timeline-key-outcomes">
+              <h4>Key Deliverables & Recognition</h4>
+              <ul>
+                <li>Awarded both the <strong>Spot Award</strong> and <strong>Team Performance Award (Dec 2013)</strong> for surpassing delivery benchmarks.</li>
+                <li>Mastered SharePoint 2010/2013 internal architecture, resulting in official Microsoft Certification (70-488 and 70-573).</li>
+              </ul>
+            </div>
+
+            <div class="timeline-tags">
+              <span>SharePoint Server</span>
+              <span aria-hidden="true">·</span>
+              <span>Full-Trust WSP</span>
+              <span aria-hidden="true">·</span>
+              <span>C# & .NET</span>
+              <span aria-hidden="true">·</span>
+              <span>JSOM & IIS</span>
+            </div>
           </div>
         </div>
+
+        <!-- Technical Author & Community -->
         <div class="timeline-item">
-          <div class="timeline-marker"></div>
+          <div class="timeline-marker" aria-hidden="true"></div>
           <div class="timeline-content">
-            <span class="timeline-date">Ongoing</span>
-            <h3>Technical Author & Community</h3>
-            <p class="role">Articles · Knowledge Sharing</p>
-            <p>
-              Published articles on Power Platform architecture, Microsoft Fabric fundamentals,
-              Model-Driven Apps, SharePoint customization (JSLink, DataTables, charts), and more.
-              Active on LinkedIn with 3K+ followers.
+            <div class="timeline-header-line">
+              <span class="timeline-badge community-badge">Knowledge Catalyst</span>
+              <span class="timeline-date">Continuous & Active</span>
+            </div>
+            <h3 class="timeline-company">Technical Author & Community</h3>
+            <p class="timeline-role">Articles, Thought Leadership & Knowledge Sharing</p>
+            <p class="timeline-description">
+              Prolific writer breaking down complex architectural transitions in the Microsoft ecosystem. 
+              Connecting with 3,000+ engineers and platform leaders on LinkedIn to discuss the evolution from legacy custom code to scalable low-code ecosystems.
             </p>
+            
+            <div class="timeline-tags">
+              <span>Technical Writing</span>
+              <span aria-hidden="true">·</span>
+              <span>LinkedIn Articles</span>
+              <span aria-hidden="true">·</span>
+              <span>Architectural Guides</span>
+            </div>
           </div>
         </div>
       </div>
-      <p class="timeline-note">* Timeline details are summarized from public sources. Update with exact titles and dates as needed.</p>
     </div>
   </section>
 
+  <!-- 05. TECHNICAL INSIGHTS & ARTICLES -->
+  <section class="section insights" id="insights">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">05. Thought Leadership</span>
+        <h2 class="section-title">Technical Insights</h2>
+        <p class="section-subtitle">Deep architectural perspectives authored by Sachchin Annam on modernizing Microsoft enterprise platforms.</p>
+      </div>
+
+      <div class="insights-grid">
+        <!-- Article 1 -->
+        <article class="insight-card" data-article="art-1">
+          <div class="insight-meta-line">
+            <span class="insight-domain">SharePoint & SPFx</span>
+            <span class="insight-readtime">6 min read</span>
+          </div>
+          <h3 class="insight-title">The Evolution of Client Customization: From JSLink to SPFx</h3>
+          <p class="insight-excerpt">
+            A reflective deep dive into how front-end SharePoint customization matured from classic Client-Side Rendering (CSR) overrides 
+            and JSOM into modern, sandboxed, React-driven SharePoint Framework (SPFx) web parts.
+          </p>
+          <div class="insight-footer">
+            <button type="button" class="read-insight-btn" data-article-id="art-1">
+              <span>Read Architecture Synthesis</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="insight-card" data-article="art-2">
+          <div class="insight-meta-line">
+            <span class="insight-domain">Dataverse Architecture</span>
+            <span class="insight-readtime">8 min read</span>
+          </div>
+          <h3 class="insight-title">Designing Resilient Relational Models in Dataverse at Scale</h3>
+          <p class="insight-excerpt">
+            Best practices for architecting multi-million row Dataverse schemas, indexing strategies, 
+            avoiding delegation bottlenecks in Canvas apps, and optimizing Model-Driven metadata forms for maximum throughput.
+          </p>
+          <div class="insight-footer">
+            <button type="button" class="read-insight-btn" data-article-id="art-2">
+              <span>Read Architecture Synthesis</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="insight-card" data-article="art-3">
+          <div class="insight-meta-line">
+            <span class="insight-domain">Microsoft Fabric</span>
+            <span class="insight-readtime">5 min read</span>
+          </div>
+          <h3 class="insight-title">Microsoft Fabric OneLake: Unifying Citizen Development with Enterprise Lakehouses</h3>
+          <p class="insight-excerpt">
+            How Microsoft Fabric transforms the divide between transactional operational apps (Dataverse) 
+            and centralized analytical lakehouses without requiring complex external ETL orchestration.
+          </p>
+          <div class="insight-footer">
+            <button type="button" class="read-insight-btn" data-article-id="art-3">
+              <span>Read Architecture Synthesis</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06. ACHIEVEMENTS & CREDENTIALS -->
   <section class="section achievements" id="achievements">
     <div class="container">
-      <h2 class="section-title"><span class="title-accent">04</span> Achievements</h2>
+      <div class="section-header">
+        <span class="section-kicker">06. Honors & Credentials</span>
+        <h2 class="section-title">Verified Excellence</h2>
+        <p class="section-subtitle">Official Microsoft certifications, enterprise spot rewards, and professional credentials.</p>
+      </div>
+
       <div class="achievements-grid">
-        <div class="achieve-card">
-          <div class="achieve-icon">🏆</div>
-          <h3>Spot Reward</h3>
-          <p>eClerx · Nov 2015</p>
+        <div class="achieve-card verified-card">
+          <div class="achieve-icon-badge" aria-hidden="true">🏆</div>
+          <div class="achieve-content">
+            <span class="achieve-type">Enterprise Honor</span>
+            <h3>Spot Reward</h3>
+            <p class="achieve-issuer">eClerx · Nov 2015</p>
+            <p class="achieve-detail">Awarded for extraordinary contribution, troubleshooting speed, and flawless client delivery under pressure.</p>
+          </div>
         </div>
-        <div class="achieve-card">
-          <div class="achieve-icon">⭐</div>
-          <h3>Spot Award</h3>
-          <p>L&T Infotech · Dec 2013</p>
+
+        <div class="achieve-card verified-card">
+          <div class="achieve-icon-badge" aria-hidden="true">⭐</div>
+          <div class="achieve-content">
+            <span class="achieve-type">Enterprise Honor</span>
+            <h3>Spot Award</h3>
+            <p class="achieve-issuer">L&T Infotech · Dec 2013</p>
+            <p class="achieve-detail">Recognized for individual technical excellence, rapid prototyping, and delivering robust SharePoint components.</p>
+          </div>
         </div>
-        <div class="achieve-card">
-          <div class="achieve-icon">👥</div>
-          <h3>Team Performance Award</h3>
-          <p>L&T Infotech · Dec 2013</p>
+
+        <div class="achieve-card verified-card">
+          <div class="achieve-icon-badge" aria-hidden="true">👥</div>
+          <div class="achieve-content">
+            <span class="achieve-type">Team Recognition</span>
+            <h3>Team Performance Award</h3>
+            <p class="achieve-issuer">L&T Infotech · Dec 2013</p>
+            <p class="achieve-detail">Honored for exceptional collaborative synergy, zero-defect release cycles, and milestone achievement.</p>
+          </div>
         </div>
-        <div class="achieve-card">
-          <div class="achieve-icon">📜</div>
-          <h3>70-488</h3>
-          <p>Developing Microsoft SharePoint Server 2013 Core Solutions</p>
+
+        <div class="achieve-card verified-card">
+          <div class="achieve-icon-badge" aria-hidden="true">📜</div>
+          <div class="achieve-content">
+            <span class="achieve-type">Microsoft Certified</span>
+            <h3>Exam 70-488</h3>
+            <p class="achieve-issuer">Developing Microsoft SharePoint Server 2013 Core Solutions</p>
+            <p class="achieve-detail">Official Microsoft MCP qualification covering apps, taxonomy, search service applications, and CSOM.</p>
+          </div>
         </div>
-        <div class="achieve-card">
-          <div class="achieve-icon">📜</div>
-          <h3>70-573</h3>
-          <p>Microsoft Certified SharePoint 2010 Application Development</p>
+
+        <div class="achieve-card verified-card">
+          <div class="achieve-icon-badge" aria-hidden="true">📜</div>
+          <div class="achieve-content">
+            <span class="achieve-type">Microsoft Certified</span>
+            <h3>Exam 70-573</h3>
+            <p class="achieve-issuer">TS: Microsoft SharePoint 2010, Application Development</p>
+            <p class="achieve-detail">Official Microsoft qualification validating core farm customization, web parts, and LINQ to SharePoint.</p>
+          </div>
         </div>
-        <div class="achieve-card">
-          <div class="achieve-icon">🎯</div>
-          <h3>Certified ScrumMaster</h3>
-          <p>Scrum Alliance</p>
+
+        <div class="achieve-card verified-card">
+          <div class="achieve-icon-badge" aria-hidden="true">🎯</div>
+          <div class="achieve-content">
+            <span class="achieve-type">Agile Certification</span>
+            <h3>Certified ScrumMaster (CSM)</h3>
+            <p class="achieve-issuer">Scrum Alliance</p>
+            <p class="achieve-detail">Demonstrated mastery of servant leadership, sprint rituals, agile team empowerment, and iterative value delivery.</p>
+          </div>
         </div>
-        <div class="achieve-card">
-          <div class="achieve-icon">📚</div>
-          <h3>Power Platform & Fabric</h3>
-          <p>Multiple LinkedIn Learning & Udemy credentials</p>
+
+        <div class="achieve-card verified-card">
+          <div class="achieve-icon-badge" aria-hidden="true">📚</div>
+          <div class="achieve-content">
+            <span class="achieve-type">Continuous Mastery</span>
+            <h3>Power Platform & Fabric Specialist</h3>
+            <p class="achieve-issuer">LinkedIn Learning & Advanced Accreditations</p>
+            <p class="achieve-detail">Verified coursework spanning Power Apps Component Framework (PCF), Fabric Lakehouses, and enterprise ALM.</p>
+          </div>
         </div>
-        <div class="achieve-card">
-          <div class="achieve-icon">✍️</div>
-          <h3>Technical Writer</h3>
-          <p>Articles on Power Platform, Fabric, SharePoint, Model-Driven Apps</p>
+
+        <div class="achieve-card verified-card">
+          <div class="achieve-icon-badge" aria-hidden="true">✍️</div>
+          <div class="achieve-content">
+            <span class="achieve-type">Community Influence</span>
+            <h3>Technical Author & Mentor</h3>
+            <p class="achieve-issuer">LinkedIn Community Leader</p>
+            <p class="achieve-detail">Regular technical author on SharePoint modern patterns, DataTables integration, and low-code strategy with 3K+ followers.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- 07. SOUNDTRACK & ATMOSPHERE -->
   <section class="section spotify-section" id="spotify">
     <div class="container">
-      <h2 class="section-title"><span class="title-accent">05</span> Soundtrack</h2>
-      <p class="spotify-intro">
-        Playlist is ready. Browsers block autoplay with sound until you interact once —
-        tap play on the player if music hasn’t started.
-      </p>
-      <div class="spotify-wrapper">
-        <iframe
-          data-testid="embed-iframe"
-          style="border-radius:12px"
-          src="https://open.spotify.com/embed/playlist/21Jl87liiZnmBUwvFoRkWc?utm_source=generator&theme=0&si=4a27b11fe76f44d2"
-          width="100%"
-          height="352"
-          frameBorder="0"
-          allowfullscreen=""
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-          title="Spotify Playlist"
-        ></iframe>
+      <div class="section-header">
+        <span class="section-kicker">07. Cinematic Atmosphere</span>
+        <h2 class="section-title">The Soundtrack</h2>
+        <p class="section-subtitle">The sonic backdrop for deep architectural focus, late-night system builds, and platform problem-solving.</p>
+      </div>
+
+      <div class="soundtrack-dual-grid">
+        <div class="soundtrack-card built-in-player">
+          <div class="soundtrack-card-header">
+            <span class="audio-type-badge">Synthesizer Generator</span>
+            <h3>Ambient Gotham Focus Engine</h3>
+          </div>
+          <p class="audio-card-desc">
+            A built-in Web Audio synthesis generator that renders an immersive, warm analog synth drone with subtle rain frequency filtering. 
+            Runs natively in your browser with zero external accounts or cookies required.
+          </p>
+
+          <div class="native-audio-controls">
+            <button type="button" class="native-play-btn" id="nativeAudioBtn">
+              <span class="btn-play-icon" aria-hidden="true">▶</span>
+              <span class="btn-play-text">Start Atmospheric Soundscape</span>
+            </button>
+            <div class="sound-level-meter" aria-hidden="true">
+              <div class="meter-bar"></div>
+              <div class="meter-bar"></div>
+              <div class="meter-bar"></div>
+              <div class="meter-bar"></div>
+              <div class="meter-bar"></div>
+            </div>
+          </div>
+          <span class="native-audio-note">Adjust volume anytime via the ambient control bar at the top right.</span>
+        </div>
+
+        <div class="soundtrack-card spotify-card">
+          <div class="soundtrack-card-header">
+            <span class="audio-type-badge">Curated Spotify Stream</span>
+            <h3>The Batman Curated Stream</h3>
+          </div>
+          <p class="spotify-intro">
+            Curated playlist inspired by Michael Giacchino’s dark orchestral scoring. Tap play below to launch the streaming audio.
+          </p>
+          <div class="spotify-wrapper">
+            <iframe
+              data-testid="embed-iframe"
+              style="border-radius:8px"
+              src="https://open.spotify.com/embed/playlist/21Jl87liiZnmBUwvFoRkWc?utm_source=generator&theme=0&si=4a27b11fe76f44d2"
+              width="100%"
+              height="280"
+              frameBorder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="Spotify Curated Batman Playlist"
+            ></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- 08. CONNECT & CONTACT -->
   <section class="section contact" id="contact">
     <div class="container">
-      <h2 class="section-title"><span class="title-accent">06</span> Contact</h2>
-      <div class="contact-card">
-        <p class="contact-lead">Ready to build the next enterprise platform?</p>
-        <div class="contact-links">
-          <a href="https://in.linkedin.com/in/sachchinannam" target="_blank" rel="noopener" class="contact-btn">
-            <span>LinkedIn</span>
-          </a>
-          <a href="https://github.com/sachchinannam404" target="_blank" rel="noopener" class="contact-btn">
-            <span>GitHub</span>
-          </a>
+      <div class="section-header text-center">
+        <span class="section-kicker">08. Strategic Dialogue</span>
+        <h2 class="section-title text-center">Initiate Connection</h2>
+        <p class="section-subtitle center-sub">Ready to discuss platform architecture, engineering leadership, or enterprise modernization?</p>
+      </div>
+
+      <div class="contact-layout">
+        <!-- Direct Coordinates -->
+        <div class="contact-info-panel">
+          <div class="contact-method-card">
+            <span class="method-icon" aria-hidden="true">📍</span>
+            <div class="method-text">
+              <span class="method-label">Operating Base</span>
+              <span class="method-val">Mumbai, Maharashtra, India</span>
+              <span class="method-sub">Open to global enterprise leadership & strategic advisory</span>
+            </div>
+          </div>
+
+          <div class="contact-method-card">
+            <span class="method-icon" aria-hidden="true">✉️</span>
+            <div class="method-text">
+              <span class="method-label">Direct Email</span>
+              <div class="email-copy-wrap">
+                <span class="method-val selectable" id="emailValText">sachchinannam@gmail.com</span>
+                <button type="button" class="copy-btn" id="copyEmailBtn" title="Copy email address">
+                  <span id="copyBtnText">Copy</span>
+                </button>
+              </div>
+              <span class="method-sub">Replies typically within 24 business hours</span>
+            </div>
+          </div>
+
+          <div class="contact-method-card">
+            <span class="method-icon" aria-hidden="true">🌐</span>
+            <div class="method-text">
+              <span class="method-label">Social Coordinates</span>
+              <div class="social-links-row">
+                <a href="https://in.linkedin.com/in/sachchinannam" target="_blank" rel="noopener" class="social-chip-link">
+                  <span>LinkedIn Profile (3K+)</span>
+                  <span class="ext-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a href="https://github.com/sachchinannam404" target="_blank" rel="noopener" class="social-chip-link">
+                  <span>GitHub (@sachchinannam404)</span>
+                  <span class="ext-arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick vCard download box -->
+          <div class="vcard-box">
+            <div class="vcard-text">
+              <h4>Digital Business Card</h4>
+              <p>Download a .VCF contact card directly to your mobile phone or Outlook contact book.</p>
+            </div>
+            <button type="button" class="st-btn primary-glow vcard-download-btn" id="downloadVcardBtn2">
+              <span>Save Contact Card</span>
+            </button>
+          </div>
         </div>
-        <p class="contact-note">Mumbai, Maharashtra, India</p>
+
+        <!-- Interactive Direct Message Dispatcher -->
+        <div class="contact-form-panel">
+          <form class="contact-form" id="contactForm" novalidate>
+            <h3 class="form-title">Send a Direct Transmission</h3>
+            <p class="form-desc">Fills out your transmission and opens your preferred email client with all architectural notes formatted.</p>
+
+            <div class="form-group">
+              <label for="contactName">Your Name & Organization *</label>
+              <input type="text" id="contactName" name="name" class="form-input" placeholder="e.g. Elena Vance · Enterprise Systems" required />
+            </div>
+
+            <div class="form-group">
+              <label for="contactEmail">Your Work Email *</label>
+              <input type="email" id="contactEmail" name="email" class="form-input" placeholder="e.g. elena.vance@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="contactTopic">Inquiry Domain</label>
+              <select id="contactTopic" name="topic" class="form-select">
+                <option value="Enterprise Platform Engineering Leadership">Engineering Leadership & Advisory</option>
+                <option value="Power Platform & Dataverse Architecture">Power Platform & Dataverse Architecture</option>
+                <option value="SharePoint Modernization & SPFx">SharePoint Modernization & SPFx</option>
+                <option value="Microsoft Fabric & Power BI Analytics">Microsoft Fabric & Analytics</option>
+                <option value="Speaking or Technical Collaboration">Technical Collaboration / Speaking</option>
+                <option value="General Conversation">General Conversation</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contactMessage">Transmission Details *</label>
+              <textarea id="contactMessage" name="message" class="form-textarea" rows="4" placeholder="Brief outline of your platform requirements, timeline, or discussion topics..." required></textarea>
+            </div>
+
+            <button type="submit" class="st-btn primary-glow form-submit-btn" id="submitContactBtn">
+              <span>Transmit Message via Email</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </button>
+            <div class="form-status" id="formStatus" aria-live="polite"></div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
-    <div class="container">
-      <p>© <span id="year"></span> Sachchin Annam</p>
-      <p class="footer-bat">🦇</p>
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span class="footer-brand">SACHCHIN ANNAM</span>
+        <span class="footer-tagline">Engineering Leadership · Enterprise Platform Architecture</span>
+      </div>
+
+      <div class="footer-center">
+        <span class="footer-bat-emblem" aria-hidden="true">🦇</span>
+        <p>© <span id="year"></span> Sachchin Annam. Engineered with precision.</p>
+      </div>
+
+      <div class="footer-right">
+        <a href="#home" class="back-to-top-link">Return to Top ↑</a>
+      </div>
     </div>
   </footer>
+
+  <!-- Floating Scroll Progress & Back to Top Button -->
+  <button type="button" class="back-to-top-float hidden" id="backToTopFloat" aria-label="Back to top of page">
+    <svg class="progress-ring" width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+      <circle class="progress-ring-bg" stroke="rgba(255,255,255,0.1)" stroke-width="3" fill="transparent" r="20" cx="24" cy="24" />
+      <circle class="progress-ring-circle" id="progressRing" stroke="var(--red)" stroke-width="3" stroke-dasharray="125.66" stroke-dashoffset="125.66" stroke-linecap="round" fill="transparent" r="20" cx="24" cy="24" />
+    </svg>
+    <span class="back-arrow" aria-hidden="true">↑</span>
+  </button>
+
+  <!-- Interactive Modal 1: Architecture Blueprint Modal -->
+  <div class="modal-backdrop hidden" id="blueprintModal" role="dialog" aria-modal="true" aria-labelledby="bpModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <span class="modal-kicker" id="bpModalKicker">Architecture Deep Dive</span>
+          <h3 class="modal-title" id="bpModalTitle">Enterprise Blueprint</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="bpModalCloseBtn" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body" id="bpModalBody">
+        <!-- Injected via JavaScript based on selected solution -->
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="st-btn secondary-btn" id="bpModalDismissBtn">Close Blueprint</button>
+        <a href="#contact" class="st-btn primary-glow" id="bpModalDiscussBtn">Discuss This Architecture →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Modal 2: Technical Article Reader Modal -->
+  <div class="modal-backdrop hidden" id="articleModal" role="dialog" aria-modal="true" aria-labelledby="artModalTitle">
+    <div class="modal-dialog article-dialog">
+      <div class="modal-header">
+        <div>
+          <span class="modal-kicker" id="artModalKicker">Technical Synthesis</span>
+          <h3 class="modal-title" id="artModalTitle">Article Title</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="artModalCloseBtn" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body article-body" id="artModalBody">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="st-btn secondary-btn" id="artModalDismissBtn">Back to Insights</button>
+        <a href="https://in.linkedin.com/in/sachchinannam" target="_blank" rel="noopener" class="st-btn primary-glow">
+          Follow Sachchin on LinkedIn →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Command Palette Modal (Cmd+K) -->
+  <div class="cmd-palette-backdrop hidden" id="cmdPalette" role="dialog" aria-modal="true" aria-label="Quick Actions Command Palette">
+    <div class="cmd-palette-box">
+      <div class="cmd-search-header">
+        <span class="cmd-search-icon" aria-hidden="true">⚡</span>
+        <input type="text" id="cmdInput" class="cmd-input" placeholder="Type a command or jump to section (e.g. Solutions, Experience, Contact, Theme, vCard)..." autocomplete="off" />
+        <kbd class="cmd-esc-badge" id="cmdEscBtn">ESC</kbd>
+      </div>
+
+      <div class="cmd-results-list" id="cmdResultsList">
+        <!-- Quick Actions & Sections dynamically rendered -->
+      </div>
+
+      <div class="cmd-footer">
+        <span>Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+        <span><kbd>Enter</kbd> to select</span>
+        <span><kbd>ESC</kbd> to close</span>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>

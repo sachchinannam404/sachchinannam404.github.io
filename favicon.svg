@@ -1,0 +1,44 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+  <defs>
+    <radialGradient id='batBg' cx='50%' cy='50%' r='50%'>
+      <stop offset='0%' stop-color='#1f0206'/>
+      <stop offset='60%' stop-color='#0a0a0a'/>
+      <stop offset='100%' stop-color='#000000'/>
+    </radialGradient>
+    <linearGradient id='batCrimson' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#FF243E'/>
+      <stop offset='45%' stop-color='#E8001F'/>
+      <stop offset='100%' stop-color='#8C0012'/>
+    </linearGradient>
+    <filter id='batGlow' x='-25%' y='-25%' width='150%' height='150%'>
+      <feDropShadow dx='0' dy='0' stdDeviation='2.2' flood-color='#FF1E38' flood-opacity='0.9'/>
+    </filter>
+  </defs>
+  <!-- Tactical Dark Knight Shield Outer Ring -->
+  <circle cx='50' cy='50' r='48' fill='url(#batBg)' stroke='#C0001A' stroke-width='2.6'/>
+  <circle cx='50' cy='50' r='44' fill='none' stroke='#C9A44A' stroke-width='0.75' stroke-dasharray='3, 2' opacity='0.75'/>
+
+  <!-- Iconic Batman Insignia with sharp ears, sleek wing curves, and scalloped tail -->
+  <path d='M 50,32.5 
+           L 48.2,32.5 
+           L 46,16.5 
+           L 43,33.5 
+           C 36.5,31.5 25.5,29.5 16,33 
+           C 11,35 6.5,38 3,42.5 
+           C 7,49 11.5,54.5 16.5,58.5 
+           C 21.5,53.5 28,52 33.5,56.5 
+           C 38.5,50.5 44.5,51.5 48.5,58.5 
+           C 49.3,64.5 49.8,72 50,80 
+           C 50.2,72 50.7,64.5 51.5,58.5 
+           C 55.5,51.5 61.5,50.5 66.5,56.5 
+           C 72,52 78.5,53.5 83.5,58.5 
+           C 88.5,54.5 93,49 97,42.5 
+           C 93.5,38 89,35 84,33 
+           C 74.5,29.5 63.5,31.5 57,33.5 
+           L 54,16.5 
+           L 51.8,32.5 Z' 
+        fill='url(#batCrimson)' 
+        stroke='#FF4A60'
+        stroke-width='0.4'
+        filter='url(#batGlow)'/>
+</svg>
